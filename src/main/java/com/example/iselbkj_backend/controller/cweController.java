@@ -3,6 +3,7 @@ package com.example.iselbkj_backend.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.iselbkj_backend.service.cweService;
+import com.example.iselbkj_backend.model.cwemetaVo;
 import com.example.iselbkj_backend.model.cweDao;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,10 +22,15 @@ public class cweController{
     }
 
 
+    @GetMapping("/CWE")
+    public List<cwemetaVo> getMetaData() {
+        return serv.getMetaData();
+    }
     @GetMapping("/demo")
     public List<cweDao> getAllBoards() {
         return serv.getAllBoards();
     }
+
     @PostMapping("/demo")
     public cweDao createBoard(@RequestBody cweDao cwedao)
     {
