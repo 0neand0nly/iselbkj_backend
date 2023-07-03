@@ -20,4 +20,10 @@ public class cweService {
         return repo.findAll();
     }
 
+    public cweDao createBoard(cweDao cwedao)
+    {
+        return repo.save(cwedao);
+    }
+
+
 }

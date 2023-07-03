@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name="CODE")
+@Table(name="demo")
 public class cweDao {
     @Id
     @Column(name ="Cwe_id")

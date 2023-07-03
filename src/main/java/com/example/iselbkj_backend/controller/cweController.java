@@ -4,13 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.iselbkj_backend.service.cweService;
 import com.example.iselbkj_backend.model.cweDao;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/")
 public class cweController{
@@ -22,10 +20,16 @@ public class cweController{
         this.serv = serv;
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/CODE")
+
+    @GetMapping("/demo")
     public List<cweDao> getAllBoards() {
         return serv.getAllBoards();
     }
+    @PostMapping("/demo")
+    public cweDao createBoard(@RequestBody cweDao cwedao)
+    {
+        return serv.createBoard(cwedao);
+    }
+
 
 }
