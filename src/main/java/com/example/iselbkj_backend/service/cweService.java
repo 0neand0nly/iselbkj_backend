@@ -1,11 +1,13 @@
 package com.example.iselbkj_backend.service;
 
 
+import com.example.iselbkj_backend.Exception.ResourceNotFoundException;
 import com.example.iselbkj_backend.model.cwemetaVo;
 import com.example.iselbkj_backend.Repository.cweRepository;
 import com.example.iselbkj_backend.Repository.cwemetaRepository;
 import com.example.iselbkj_backend.model.cweDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,7 @@ public class cweService {
 
     @Autowired
     private cweRepository repo;
+    @Autowired
     private cwemetaRepository metarepo;
 
     public List<cweDao> getAllBoards()
@@ -33,6 +36,29 @@ public class cweService {
         return repo.save(cwedao);
     }
     public cwemetaVo createMetaBoard(cwemetaVo cwemetavo) { return metarepo.save(cwemetavo);}
+
+    public ResponseEntity<cweDao> getBoard(Integer cwe_id)
+    {
+        cweDao cwedao = repo.findById(cwe_id). orElseThrow(() -> new ResourceNotFoundException("This Data does not Exist in the Database CWE_ID: [" + cwe_id +"]"));
+        return ResponseEntity.ok(cwedao);
+    }
+
+
+    public ResponseEntity<cweDao> updateBoard(Integer cwe_id, cweDao updateBoard)
+    {
+        cweDao cwedao = repo.findById(cwe_id) .orElseThrow(() ->  new ResourceNotFoundException("This Data does not Exist in the Database CWE_ID: [" + cwe_id +"]"));
+        cwedao.setCwe_id(updateBoard.getCwe_id());
+        cwedao.setCwe_name(updateBoard.getCwe_name());
+        cwedao.setSrcGood(updateBoard.getSrcGood());
+        cwedao.setSrcBad(updateBoard.getSrcBad());
+        cwedao.setByteGood(updateBoard.getByteGood());
+        cwedao.setByteBad(updateBoard.getByteBad());
+
+
+        cweDao endUpdate = repo.save(cwedao);
+        return ResponseEntity.ok(endUpdate);
+    }
+
 
 
 

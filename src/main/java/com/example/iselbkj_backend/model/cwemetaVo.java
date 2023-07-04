@@ -16,9 +16,9 @@ public class cwemetaVo {
     @Column(name = "Cwe_name")
     private String Cwe_name;
     @Column(name = "IsSrcidt")
-    private String IsSrcidt;
+    private Integer IsSrcidt;
     @Column(name = "IsByteidt")
-    private String SrcBad;
+    private Integer IsByteidt;
     @Column(name = "report")
     private String report;
     @Column(name = "conclusion")
@@ -43,21 +43,7 @@ public class cwemetaVo {
         Cwe_name = cwe_name;
     }
 
-    public String getIsSrcidt() {
-        return IsSrcidt;
-    }
 
-    public void setIsSrcidt(String isSrcidt) {
-        IsSrcidt = isSrcidt;
-    }
-
-    public String getSrcBad() {
-        return SrcBad;
-    }
-
-    public void setSrcBad(String srcBad) {
-        SrcBad = srcBad;
-    }
 
     public String getReport() {
         return report;
@@ -82,4 +68,22 @@ public class cwemetaVo {
     public void setTemp(String temp) {
         this.temp = temp;
     }
+
+    public Integer getIsSrcidt() {
+        return IsSrcidt;
+    }
+
+    public void setIsSrcidt(Integer isSrcidt) {
+        IsSrcidt = isSrcidt;
+    }
+
+    public Integer getIsByteidt() {
+        return IsByteidt;
+    }
+
+    public void setIsByteidt(Integer isByteidt) {
+        IsByteidt = isByteidt;
+    }
 }
+
+
