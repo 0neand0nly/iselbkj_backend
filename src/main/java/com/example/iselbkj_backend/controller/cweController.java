@@ -8,7 +8,9 @@ import com.example.iselbkj_backend.model.cweDao;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -51,12 +53,35 @@ public class cweController{
     }
 
     @PutMapping("/CODE/{cwe_id}")
-    public ResponseEntity<cweDao> updateBoardById(@PathVariable("cwe_id") Integer cweId, @PathVariable cweDao cwedao) {
+    public ResponseEntity<cweDao> updateBoardById(@PathVariable("cwe_id") Integer cweId, @RequestBody cweDao cwedao) {
         return serv.updateBoard(cweId,cwedao);
     }
 
+    @DeleteMapping("/CODE/{cweId}")
+    public ResponseEntity<Map<String, Boolean>> deleteBoard(@PathVariable("cweId") Integer cweId) {
+        ResponseEntity<Map<String, Boolean>> codeResponse = serv.deleteBoard(cweId);
 
+        if (codeResponse.getStatusCode().is2xxSuccessful()) {
+            Map<String, Boolean> response = new HashMap<>();
+            response.put("CODE_Deleted_" + cweId, codeResponse.getBody().get("Deleted CODE Data by cwe_id : {" + cweId + "}"));
+            return ResponseEntity.ok(response);
+        } else {
+            throw new RuntimeException("Failed to delete CODE for id: " + cweId);
+        }
+    }
 
+    @DeleteMapping("/CWE/{cweId}")
+    public ResponseEntity<Map<String, Boolean>> deleteCwe(@PathVariable("cweId") Integer cweId) {
+        ResponseEntity<Map<String, Boolean>> cweResponse = serv.deleteCwe(cweId);
+
+        if (cweResponse.getStatusCode().is2xxSuccessful()) {
+            Map<String, Boolean> response = new HashMap<>();
+            response.put("CWE_Deleted_" + cweId, cweResponse.getBody().get("Deleted CWE Data by cwe_id : {" + cweId + "}"));
+            return ResponseEntity.ok(response);
+        } else {
+            throw new RuntimeException("Failed to delete CWE for id: " + cweId);
+        }
+    }
 
 
 }
