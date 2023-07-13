@@ -1,6 +1,8 @@
 package com.example.iselbkj_backend.service;
 
 import com.example.iselbkj_backend.Exception.ResourceNotFoundException;
+import com.example.iselbkj_backend.Repository.chunkRepository;
+import com.example.iselbkj_backend.model.chunkVo;
 import com.example.iselbkj_backend.model.cwemetaVo;
 import com.example.iselbkj_backend.Repository.cweRepository;
 import com.example.iselbkj_backend.Repository.cwemetaRepository;
@@ -21,6 +23,9 @@ public class cweService {
     @Autowired
     private cwemetaRepository metarepo;
 
+    @Autowired
+    private chunkRepository chunkrepo;
+
     public List<cweDao> getAllBoards() {
         return repo.findAll();
     }
@@ -28,6 +33,12 @@ public class cweService {
     public List<cwemetaVo> getMetaData() {
         return metarepo.findAll();
     }
+
+    public List<chunkVo> getAllChunk()
+    {
+        return chunkrepo.findAll();
+    }
+
 
     public cweDao createBoard(cweDao cwedao) {
         return repo.save(cwedao);
@@ -40,6 +51,11 @@ public class cweService {
     public ResponseEntity<cweDao> getBoard(Integer cwe_id) {
         cweDao cwedao = repo.findById(cwe_id).orElseThrow(() -> new ResourceNotFoundException("This Data does not Exist in the Database CWE_ID: [" + cwe_id + "]"));
         return ResponseEntity.ok(cwedao);
+    }
+
+    public ResponseEntity<chunkVo> getChunk(Integer cwe_id) {
+        chunkVo chunkvo = chunkrepo.findById(cwe_id).orElseThrow(() -> new ResourceNotFoundException("This Data does not Exist in the Database CWE_ID: [" + cwe_id + "]"));
+        return ResponseEntity.ok(chunkvo);
     }
 
     public ResponseEntity<cweDao> updateBoard(Integer cwe_id, cweDao updateBoard) {

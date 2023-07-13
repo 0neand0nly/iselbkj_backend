@@ -1,5 +1,6 @@
 package com.example.iselbkj_backend.controller;
 
+import com.example.iselbkj_backend.model.chunkVo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.iselbkj_backend.service.cweService;
@@ -34,6 +35,14 @@ public class cweController{
     public List<cweDao> getAllBoards() {
         return serv.getAllBoards();
     }
+
+    @GetMapping("/CHUNK")
+    public List<chunkVo> getAllChunk() {
+        return serv.getAllChunk();
+    }
+
+
+
 
     @PostMapping("/CODE")
     public cweDao createBoard(@RequestBody cweDao cwedao)

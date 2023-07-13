@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="CWE")
+@Table(name="CHUNK")
 public class chunkVo {
 
     @Id
