@@ -13,8 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//@CrossOrigin(origins = "https://web-iselbkj-frontend-kvmh2mljph7x12.sel4.cloudtype.app/")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://web-iselbkj-frontend-kvmh2mljph7x12.sel4.cloudtype.app/")
+//@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/")
 public class cweController{
@@ -93,5 +93,28 @@ public class cweController{
         }
     }
 
+
+    @GetMapping("/CHUNK/{cwe_id}")
+    public ResponseEntity<chunkVo> getChunkById(@PathVariable("cwe_id") Integer cweId) {
+        return serv.getChunk(cweId);
+    }
+
+    @PutMapping("/CHUNK/{cwe_id}")
+    public ResponseEntity<chunkVo> updateChunkById(@PathVariable("cwe_id") Integer cweId, @RequestBody chunkVo chunkvo) {
+        return serv.updateChunk(cweId,chunkvo);
+    }
+
+    @DeleteMapping("/CHUNK/{cweId}")
+    public ResponseEntity<Map<String, Boolean>> deleteChunk(@PathVariable("cweId") Integer cweId) {
+        ResponseEntity<Map<String, Boolean>> chunkResponse = serv.deleteChunk(cweId);
+
+        if (chunkResponse.getStatusCode().is2xxSuccessful()) {
+            Map<String, Boolean> response = new HashMap<>();
+            response.put("Chunk_Deleted_" + cweId, chunkResponse.getBody().get("Deleted CWE Data by cwe_id : {" + cweId + "}"));
+            return ResponseEntity.ok(response);
+        } else {
+            throw new RuntimeException("Failed to delete CWE for id: " + cweId);
+        }
+    }
 
 }

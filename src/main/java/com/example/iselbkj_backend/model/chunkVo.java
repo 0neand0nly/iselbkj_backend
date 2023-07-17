@@ -15,10 +15,10 @@ public class chunkVo {
     private Integer Cwe_id;
     @Column(name = "Cwe_name")
     private String Cwe_name;
-    @Column(name = "Source_code")
+    @Column(name = "source_code")
     private String source_code;
 
-    @Column(name = "Byte_code")
+    @Column(name = "byte_code")
     private String byte_code;
 
     public String getSource_code() {

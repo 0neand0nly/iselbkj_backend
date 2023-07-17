@@ -71,6 +71,21 @@ public class cweService {
         return ResponseEntity.ok(endUpdate);
     }
 
+
+    public ResponseEntity<chunkVo> updateChunk(Integer cwe_id, chunkVo updateBoard) {
+        chunkVo chunkvo = chunkrepo.findById(cwe_id).orElseThrow(() -> new ResourceNotFoundException("This Data does not Exist in the Database CWE_ID: [" + cwe_id + "]"));
+        chunkvo.setCwe_id(updateBoard.getCwe_id());
+        chunkvo.setCwe_name(updateBoard.getCwe_name());
+        chunkvo.setSource_code(updateBoard.getSource_code());
+        chunkvo.setByte_code(updateBoard.getByte_code());
+
+
+        chunkVo endUpdate = chunkrepo.save(chunkvo);
+        return ResponseEntity.ok(endUpdate);
+    }
+
+
+
     public ResponseEntity<Map<String, Boolean>> deleteBoard(Integer cwe_id) {
         cweDao cwedao = repo.findById(cwe_id).orElseThrow(() -> new ResourceNotFoundException("This Data does not Exist in the Database CWE_ID: [" + cwe_id + "]"));
 
@@ -88,4 +103,14 @@ public class cweService {
         res.put("Deleted CWE Data by cwe_id : {" + cwe_id + "}", Boolean.TRUE);
         return ResponseEntity.ok(res);
     }
+
+    public ResponseEntity<Map<String, Boolean>> deleteChunk(Integer cwe_id) {
+        chunkVo chunkvo = chunkrepo.findById(cwe_id).orElseThrow(() -> new ResourceNotFoundException("This Data does not Exist in the Database CWE_ID: [" + cwe_id + "]"));
+
+        chunkrepo.delete(chunkvo);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("Deleted CHUNK Data by cwe_id : {" + cwe_id + "}", Boolean.TRUE);
+        return ResponseEntity.ok(response);
+    }
+
 }
